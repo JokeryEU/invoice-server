@@ -1,98 +1,157 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Invoice Server
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A secure, scalable, and extensible API for managing invoices and users, built with [NestJS](https://nestjs.com/), [Prisma ORM](https://www.prisma.io/), and PostgreSQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- **JWT Authentication**: Secure login and protected endpoints.
+- **User Management**: User registration and authentication (extendable).
+- **Invoice Management**: CRUD operations for invoices, linked to users.
+- **Validation & Security**: Input validation, password hashing, and best practices.
+- **Testing**: Includes E2E and unit test setup.
+- **Modern TypeScript**: Strict typing, decorators, and latest ECMAScript features.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Getting Started
 
-## Project setup
+### Prerequisites
 
-```bash
-$ npm install
-```
+- Node.js (v20+ recommended)
+- PostgreSQL database
+- [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/)
 
-## Compile and run the project
+### Setup
 
-```bash
-# development
-$ npm run start
+1. **Clone the repository**
 
-# watch mode
-$ npm run start:dev
+   ```bash
+   git clone https://github.com/JokeryEU/invoice-server.git
+   cd invoice-server
+   ```
 
-# production mode
-$ npm run start:prod
-```
+2. **Install dependencies**
 
-## Run tests
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-```bash
-# unit tests
-$ npm run test
+3. **Configure environment variables**
 
-# e2e tests
-$ npm run test:e2e
+   Copy `.env.example` to `.env` and update values as needed:
 
-# test coverage
-$ npm run test:cov
-```
+   ```bash
+   cp .env.example .env
+   ```
 
-## Deployment
+   - `DATABASE_URL`: PostgreSQL connection string
+   - `JWT_SECRET`: Secret for signing JWT tokens
+   - `PORT`: (optional) API server port
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+4. **Generate Prisma client**
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+   ```bash
+   npx prisma generate
+   ```
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+5. **Run database migrations**
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+   ```bash
+   npx prisma migrate deploy
+   ```
 
-## Resources
+6. **Seed the database (optional)**
 
-Check out a few resources that may come in handy when working with NestJS:
+   ```bash
+   npm run prisma:seed
+   # or
+   npx ts-node ./prisma/seed.ts
+   ```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Running the Application
 
-## Support
+- **Development**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+  ```bash
+  npm run start:dev
+  ```
 
-## Stay in touch
+- **Production**
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+  ```bash
+  npm run build
+  npm run start:prod
+  ```
+
+### API Overview
+
+- **Auth**
+
+  - `POST /auth/login` — Login with email and password, returns JWT.
+
+- **Invoices** (JWT required)
+  - `GET /invoice` — List all invoices for the authenticated user.
+  - `GET /invoice/:id` — Get a specific invoice by ID.
+
+> Extend endpoints as needed for full CRUD and user management.
+
+### Testing
+
+- **Unit tests**
+
+  ```bash
+  npm run test
+  ```
+
+- **E2E tests**
+
+  ```bash
+  npm run test:e2e
+  ```
+
+- **Coverage**
+
+  ```bash
+  npm run test:cov
+  ```
+
+### Code Quality
+
+- **Lint**
+
+  ```bash
+  npm run lint
+  ```
+
+- **Format**
+
+  ```bash
+  npm run format
+  ```
+
+## Project Structure
+
+- `src/` — Main application source (modules, controllers, services)
+- `prisma/` — Prisma schema, migrations, and seed scripts
+- `test/` — E2E and unit tests
+
+## Extending
+
+- Add new modules using NestJS CLI: `nest g module <name>`
+- Add new Prisma models and run `npx prisma migrate dev`
+- Implement additional endpoints and guards as needed
+
+## Security
+
+- Passwords are hashed with bcrypt.
+- JWT secrets and DB credentials must be kept secure.
+- All invoice endpoints are protected by JWT guard.
 
 ## License
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+[MIT](LICENSE)
+
+---
+
+**Author:** Mihai Ivanov ([mihai.ivanov.dev@gmail.com](mailto:mihai.ivanov.dev@gmail.com))  
+**Website:** [https://mihai-ivanov.com](https://mihai-ivanov.com)
