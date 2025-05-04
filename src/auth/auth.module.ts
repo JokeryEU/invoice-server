@@ -9,7 +9,10 @@ import { PrismaModule } from '../../prisma/prisma.module';
 @Module({
   imports: [
     PassportModule,
-    JwtModule.register({ secret: 'secret', signOptions: { expiresIn: '1d' } }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: '1d' },
+    }),
     PrismaModule,
   ],
   providers: [AuthService, JwtStrategy],
